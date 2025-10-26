@@ -56,4 +56,29 @@ where $\sigma:\mathbb{R}\rightarrow\mathbb{R}$ is an activation function $\sigma
 and $\mathbf{\theta}_{i}\in\mathbb{R}^{p}$ ($p=m+1$) denotes the feature weights (and bias), learned from data or set based on subjective beliefs.
 \end{frame}
 
+\begin{frame}
+Allocate investment budget $B$ across portfolio assets, where $p_i$ is the price of asset $i$.
+The optimal portfolio is the solution of the utility maximization problem:
+\begin{align*}
+    \underset{n_{1},\dots,n_{P}}{\text{maximize}} &\quad \kappa(\gamma)\prod_{i\in\mathcal{P}}n_{i}^{\gamma_{i}} \\
+    \text{subject to}&\quad B =  \sum_{i\in\mathcal{P}}n_{i}\;{p}_{i}\\
+    \epsilon\;{a_{i}}&\leq n_{i} \leq{a_{i}}\left(\frac{B}{p_{i}}\right)\quad{\forall{i}\in\mathcal{P}}\\
+    a_{i} &\in\{0,1\}\quad{\forall{i}\in\mathcal{P}}\\
+    \epsilon &\in\mathbb{R}_{+} \quad\text{(hyperparameter)}
+\end{align*}
+\end{frame}
+
+\begin{frame}
+The share optimization problem has an \textbf{analytical solution}. 
+Let $S = \{i \mid a_i = 1\}$ be the available assets; $S_+ = \{i \mid \gamma_i > 0\}$ the preferred ones, $S_- = \{i \mid \gamma_i < 0\}$ the non-preferred.
+The optimal shares $n_i^*$ are:
+\begin{align*}
+n_{i}^{\star} & = \begin{cases}
+\left(\frac{\gamma_{i}}{\sum_{j\in{S}_{+}}\gamma_{j}}\right)\;\frac{B - \epsilon\sum_{k\in{S}_{-}}p_{k}}{p_{i}} & \forall{i}\in{S}_{+}\\
+\epsilon & \forall{i}\in{S}_{-}
+\end{cases}\quad\blacksquare    
+\end{align*}
+Here, $n_i^*$ is the optimal number of shares for asset $i$, balancing preferences and budget constraints.
+\end{frame}
+
 \end{document}

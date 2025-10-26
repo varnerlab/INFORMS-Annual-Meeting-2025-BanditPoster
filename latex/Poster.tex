@@ -1,0 +1,57 @@
+\documentclass[aspectratio=169]{beamer}
+
+%Information to be included in the title page:
+% \title{Sample title}
+% \author{Anonymous}
+% \institute{Overleaf}
+% \date{2021}
+
+% \usepackage{xcolor}
+% \usepackage[dvipsnames]{xcolor}
+% \setbeamercolor{background canvas}{bg=black!50}
+% \setbeamercolor{\texttt}{fg=white}\usebeamercolor*{\texttt}
+
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\setbeamertemplate{itemize items}[circle]
+% \setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!75!black}
+
+% 1- Block title (background and text)
+% \setbeamercolor{block title}{bg=cyan, fg=white}
+% % 2- Block body (background)
+% \setbeamercolor{block body}{bg=cyan!10}
+
+\begin{document}
+
+\begin{frame}
+There exists a collection of risky assets in the portfolio $\mathcal{P}$.
+An oracle provides the current price $p_{i}\in\mathbb{R}_{+}$ for each asset $i\in\mathcal{P}$, and 
+a binary action vector $a\in\{0,1\}^{|\mathcal{P}|}$ indicating whether each asset is available for investment ($a_{i}=1$) or not ($a_{i}=0$).
+The goal of the investment agent is to allocate a fixed budget $B$ across these assets to \textbf{maximize the utility} of the portfolio. 
+\end{frame}
+
+\begin{frame}
+\textbf{Utility Function:} A utility function $U:\mathbb{R}_{+}^{|\mathcal{P}|}\to\mathbb{R}$ maps the vector of shares of each asset 
+in the portfolio to a real-valued utility score that reflects the investor's satisfaction with that allocation. We use a Cobb-Douglas utility function to model investor preferences:
+\begin{align*}
+U\left(n_{1},n_{2},\dots,n_{P}\right) = \kappa(\gamma)\prod_{i\in\mathcal{P}}n_{i}^{\gamma_{i}}
+\end{align*}
+where $\gamma_{i}\in\mathbb{R}$ is the \textbf{preference coefficient} for asset $i$ (we need to estimate these values), and $\kappa(\gamma)$ is a leading coefficient that sets the scale of the utility function.
+
+Let $n = (n_1, \dots, n_P)^\top \in \mathbb{R}_+^{|\mathcal{P}|}$ be the vector of shares, where $n_i$ is the \textbf{number of shares} of asset $i$ in the portfolio 
+(we need to estimate these values). 
+\end{frame}
+
+\end{document}

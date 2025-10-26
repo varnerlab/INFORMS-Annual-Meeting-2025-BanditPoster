@@ -50,4 +50,13 @@ U(n_1, \dots, n_P) = \kappa(\gamma) \prod_{i \in \mathcal{P}} n_i^{\gamma_i}
 where $\gamma_i$ is the preference for asset $i$ (output of a preference model), $\kappa(\gamma)$ scales the function, and $n_i$ is the number of shares (what we compute).
 \end{frame}
 
+\begin{frame}
+\textbf{Investor preference model:} The $\gamma_{i}$ preference coefficients can reflect market conditions, sentiment, and other asset-specific information through a feature vector $\mathbf{x}_{i}\in\mathbb{R}^{m}$:
+\begin{align*}
+\gamma_{i} & = \sigma\left(\mathbf{x}^{\top}_{i}\theta_{i}\right)\quad\forall{i}\in\mathcal{P}
+\end{align*}
+where $\sigma:\mathbb{R}\rightarrow\mathbb{R}$ is an activation function $\sigma_{\theta}(x)\in[-1,1]$,
+and $\mathbf{\theta}_{i}\in\mathbb{R}^{p}$ ($p=m+1$) denotes the feature weights (and bias), learned from data or set based on subjective beliefs.
+\end{frame}
+
 \end{document}

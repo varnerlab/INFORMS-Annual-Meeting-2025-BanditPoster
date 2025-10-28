@@ -1,0 +1,97 @@
+\documentclass[aspectratio=169]{beamer}
+
+%Information to be included in the title page:
+% \title{Sample title}
+% \author{Anonymous}
+% \institute{Overleaf}
+% \date{2021}
+
+% \usepackage{xcolor}
+% \usepackage[dvipsnames]{xcolor}
+% \setbeamercolor{background canvas}{bg=black!50}
+% \setbeamercolor{\texttt}{fg=white}\usebeamercolor*{\texttt}
+
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\setbeamertemplate{itemize items}[circle]
+% \setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!75!black}
+
+% 1- Block title (background and text)
+% \setbeamercolor{block title}{bg=cyan, fg=white}
+% % 2- Block body (background)
+% \setbeamercolor{block body}{bg=cyan!10}
+
+\begin{document}
+
+\begin{frame}
+\textbf{Problem Setup:} Portfolio $\mathcal{P}$ of risky assets with prices $p_i$ and availability $a_i \in \{0,1\}$. Allocate budget $B$ to maximize portfolio utility.
+\end{frame}
+
+\begin{frame}
+\textbf{Utility Function:} Cobb-Douglas utility measures investor satisfaction:
+\begin{align*}
+U(n_1, \dots, n_P) = \kappa(\gamma) \prod_{i \in \mathcal{P}} n_i^{\gamma_i}
+\end{align*}
+where $\gamma_i$ is the preference for asset $i$ (output of a preference model), $\kappa(\gamma)$ scales the function, and $n_i$ is the number of shares (what we compute).
+\end{frame}
+
+\begin{frame}
+\textbf{Investor preference model:} The $\gamma_{i}$ preference coefficients can reflect market conditions, sentiment, and other asset-specific information through a feature vector $\mathbf{x}_{i}\in\mathbb{R}^{m}$:
+\begin{align*}
+\gamma_{i} & = \sigma\left(\mathbf{x}^{\top}_{i}\theta_{i}\right)\quad\forall{i}\in\mathcal{P}
+\end{align*}
+where $\sigma:\mathbb{R}\rightarrow\mathbb{R}$ is an activation function $\sigma_{\theta}(x)\in[-1,1]$,
+and $\mathbf{\theta}_{i}\in\mathbb{R}^{p}$ ($p=m+1$) denotes the feature weights (and bias), learned from data or set based on subjective beliefs.
+\end{frame}
+
+\begin{frame}
+Allocate investment budget $B$ across portfolio assets, where $p_i$ is the price of asset $i$.
+The optimal portfolio is the solution of the utility maximization problem:
+\begin{mdframed}[backgroundcolor=black!10]
+\begin{align*}
+    \underset{n_{1},\dots,n_{P}}{\text{maximize}} &\quad \kappa(\gamma)\prod_{i\in\mathcal{P}}n_{i}^{\gamma_{i}} \\
+    \text{subject to}&\quad B =  \sum_{i\in\mathcal{P}}n_{i}\;{p}_{i}\\
+    \epsilon\;{a_{i}}&\leq n_{i} \leq{a_{i}}\left(\frac{B}{p_{i}}\right)\quad{\forall{i}\in\mathcal{P}}\\
+    a_{i} &\in\{0,1\}\quad{\forall{i}\in\mathcal{P}}\\
+    \epsilon &\in\mathbb{R}_{+} \quad\text{(hyperparameter)}
+\end{align*}
+\end{mdframed}
+where $a_{i} = \{0,1\}$ indicates asset availability (bandit arm)
+\end{frame}
+
+\begin{frame}
+The share optimization problem has an \textbf{analytical solution}. 
+Let $S = \{i \mid a_i = 1\}$ be the available assets; $S_+ = \{i \mid \gamma_i > 0\}$ the preferred ones, $S_- = \{i \mid \gamma_i < 0\}$ the non-preferred.
+The optimal shares $n_i^*$ are:
+\begin{align*}
+n_{i}^{\star} & = \begin{cases}
+\left(\frac{\gamma_{i}}{\sum_{j\in{S}_{+}}\gamma_{j}}\right)\;\frac{B - \epsilon\sum_{k\in{S}_{-}}p_{k}}{p_{i}} & \forall{i}\in{S}_{+}\\
+\epsilon & \forall{i}\in{S}_{-}
+\end{cases}\quad\blacksquare    
+\end{align*}
+Here, $n_i^*$ is the optimal number of shares for asset $i$, balancing preferences and budget constraints.
+\end{frame}
+
+\begin{frame}
+Portfolio simulations for the bandit investor model. 
+\textbf{A}: Example K = 10 asset portfolio with random fill prices and $\lambda = 1.0$. The bandit portfolio (red) is near the efficient frontier, but not on it.
+\textbf{B}: Efficient frontiers for different $\lambda$ values, showing trade-offs between risk and return.
+Out-of-sample performance over 182 trading days (2025), comparing bandit, maximum Sharpe ratio, and SPY index portfolios (K=20) at varying risk aversion: no risk ($\lambda=0$, \textbf{C}), moderate ($\lambda=1.0$, \textbf{D}), high ($\lambda=2.0$, \textbf{E}).
+\end{frame}
+
+\end{document}

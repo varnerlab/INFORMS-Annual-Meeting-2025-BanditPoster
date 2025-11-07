@@ -11,7 +11,7 @@ function _solve(model::MyEpsilonGreedyDynamicNoiseAlgorithmModel; T::Int = 0, wo
     context::MyDynamicBanditPortfolioAllocationContextModel = nothing, startdayindex::Int = 1)
 
 
-     # initialize -
+    # initialize -
     K = model.K; # get the number of goods to choose from
     α = model.α; # learning rate
     N = 2^K; # this is the maximum number of arms we can have (we have K goods, with each good being {0 | 1})

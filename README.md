@@ -1,5 +1,5 @@
 # INFORMS-Annual-Meeting-2025-BanditPoster
-Repository for the Bandit Problem Poster presented at the INFORMS Annual Meeting 2025.
+Repository for the Bandit Problem Poster presented at the INFORMS Annual Meeting 2025. This work was developed as part of the CHEME 5660: Quantitative Finance for Engineers course at Cornell University. It is also in part based on independent research work by undergraduate students Dhruv Mittal and Evan Vu. 
 
 ## Requirements
 This example uses the [Julia programming language](https://julialang.org/downloads/) to explore the bandit problem. We also use a variety of tools and languages, such as:
